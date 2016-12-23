@@ -1,2 +1,2 @@
 
-from greengraph.ggraph import Greengraph
+from .ggraph import Greengraph
