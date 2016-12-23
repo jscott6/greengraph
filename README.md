@@ -7,4 +7,4 @@ greengraph uses satellite imagery to compute the proportion of 'green' pixels be
 
 greengraph can be invoked from the command line using, for example:
 
-  >>> greengraph --begin "London" --end "Paris" --steps 20 --out graph.png
+  > greengraph --begin "London" --end "Paris" --steps 20 --out graph.png
