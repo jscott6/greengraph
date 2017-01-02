@@ -3,6 +3,7 @@ from pytest import approx
 from ggraph import Greengraph
 import numpy as np
 from mock import Mock
+from nose.tools import assert_raises
 
 graph = Greengraph("London", "Paris")
 
@@ -29,4 +30,15 @@ def test_location_sequence():
         assert coords_seq[i] == lond_coords + i*diff
 
 def test_green_between():
-    with patch.object(requests, 'get'):
+
+    # we test the funnctionality of count_green in test_map
+    # here we look at the size of the returned array and
+    # that we accept positive integers only
+
+    steps = 10
+    green_between = graph.green_between(steps)
+
+    assert np.shape(green_between) == (10,)
+
+    with assert_raises(ValueError):
+        assert graph.green_between(-1)
