@@ -1,12 +1,11 @@
 
-from pytest import approx
-from ggraph import Greengraph
+from greengraph.ggraph import Greengraph
 import numpy as np
 from mock import Mock
-from nose.tools import assert_raises
+from pytest import raises
 
 graph = Greengraph("London", "Paris")
-
+precision = 1e-3
 
 def test_init():
     assert graph.start == "London"
@@ -14,7 +13,9 @@ def test_init():
 
 def test_geolocate():
     # test method returns correct latitude & longitude
-    assert graph.geolocate('London') == approx((51.5074, -0.1278), abs = 1e-3)
+    graph_geolocate = graph.geolocate('London')
+    assert abs(graph_geolocate[0]- 51.5074) < precision
+    assert abs(graph_geolocate[1] + 0.1278) < precision
 
 def test_location_sequence():
     # test method returns the correct sequence of coordinates
@@ -25,9 +26,8 @@ def test_location_sequence():
     paris_coords = np.asarray(graph.geolocate("Paris"))
     diff = (paris_coords - lond_coords)/(steps-1)
     coord_seq = graph.location_sequence(lond_coords, paris_coords, steps)
-
     for i in range(0, steps):
-        assert coords_seq[i] == lond_coords + i*diff
+        assert all(abs(coord_seq[i] - (lond_coords + i*diff)) < precision)
 
 def test_green_between():
 
@@ -40,5 +40,5 @@ def test_green_between():
 
     assert np.shape(green_between) == (10,)
 
-    with assert_raises(ValueError):
+    with raises(ValueError):
         assert graph.green_between(-1)

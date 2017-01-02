@@ -2,7 +2,7 @@
 
 import requests
 from mock import patch
-from greengraph.map import map
+from greengraph.map import Map
 import numpy as np
 
 def test_Map_init():
@@ -46,7 +46,7 @@ def test_Map_count_green():
 
     london_map = Map(51.5074,-0.1278)
 
-    size = np.shape(london_map)[1]
+    size = np.shape(london_map.pixels)[1]
     limit = size/2
 
     # set limit/size of the pixels so that behaviour uniformly determined by
