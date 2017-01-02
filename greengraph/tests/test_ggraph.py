@@ -2,6 +2,7 @@
 from pytest import approx
 from ggraph import Greengraph
 import numpy as np
+from mock import Mock
 
 graph = Greengraph("London", "Paris")
 
