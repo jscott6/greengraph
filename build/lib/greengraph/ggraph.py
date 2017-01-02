@@ -1,7 +1,6 @@
 from .map import Map
 import numpy as np
 import geopy
-from mock import Mock, Patch
 
 class Greengraph(object):
 
